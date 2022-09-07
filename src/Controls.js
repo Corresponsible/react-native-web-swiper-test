@@ -1,32 +1,32 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { StyleSheet, Text, View } from 'react-native';
+import React from "react";
+import PropTypes from "prop-types";
+import { StyleSheet, Text, View } from "react-native";
 
-import { nodeType } from './nodeType';
-import { renderNode } from './renderNode';
+import { nodeType } from "./nodeType";
+import { renderNode } from "./renderNode";
 
-import { Badge } from './Badge';
-import { Button } from './Button';
+import { Badge } from "./Badge";
+import { Button } from "./Button";
 
-import colors from './colors';
+import colors from "./colors";
 
 const cellPositions = [
-  'top-left',
-  'top',
-  'top-right',
-  'left',
-  'center',
-  'right',
-  'bottom-left',
-  'bottom',
-  'bottom-right',
+  "top-left",
+  "top",
+  "top-right",
+  "left",
+  "center",
+  "right",
+  "bottom-left",
+  "bottom",
+  "bottom-right",
 ];
 
 export default class DefaultControls extends React.Component {
-  dotsPos = (() => this._getPos(this.props.dotsPos, 'bottom', 'right'))();
+  dotsPos = (() => this._getPos(this.props.dotsPos, "bottom", "right"))();
   prevPos = (() =>
-    this._getPos(this.props.prevPos, 'bottom-left', 'top-right'))();
-  nextPos = (() => this._getPos(this.props.nextPos, 'bottom-right'))();
+    this._getPos(this.props.prevPos, "bottom-left", "top-right"))();
+  nextPos = (() => this._getPos(this.props.nextPos, "bottom-right"))();
 
   constructor(props) {
     super(props);
@@ -85,7 +85,7 @@ export default class DefaultControls extends React.Component {
           dotsWrapperStyle,
         ])}
       >
-        {Array.from({ length: count }, (v, i) => i).map(index => (
+        {Array.from({ length: count }, (v, i) => i).map((index) => (
           <DotComponent
             key={index}
             index={index}
@@ -105,7 +105,10 @@ export default class DefaultControls extends React.Component {
         type="clear"
         onPress={onPress}
         title={title}
-        titleStyle={StyleSheet.flatten([styles.buttonTitleStyle({ colors }, type), titleStyle])}
+        titleStyle={StyleSheet.flatten([
+          styles.buttonTitleStyle({ colors }, type),
+          titleStyle,
+        ])}
         {...props}
       />
     );
@@ -169,12 +172,19 @@ export default class DefaultControls extends React.Component {
 
   _renderRow({ rowAlign }) {
     const Cell = this._renderCell;
-    const row = [
-      `${!rowAlign ? '' : rowAlign + '-'}left`,
-      rowAlign || 'center',
-      `${!rowAlign ? '' : rowAlign + '-'}right`,
+    const { excludeCells } = this.props;
+    let row = [
+      `${!rowAlign ? "" : rowAlign + "-"}left`,
+      rowAlign || "center",
+      `${!rowAlign ? "" : rowAlign + "-"}right`,
     ];
-    const alignItems = ['flex-start', 'center', 'flex-end'];
+
+    if (excludeCells.length !== 0) {
+      // exclude cells for proper styling
+      row = row.filter((el) => !excludeCells.includes(el));
+    }
+
+    const alignItems = ["flex-start", "center", "flex-end"];
     return (
       <View style={styles.row}>
         {row.map((name, index) => (
@@ -208,7 +218,7 @@ DefaultControls.propTypes = {
   cellsContent: PropTypes.shape(
     cellPositions.reduce((obj, item) => ({ ...obj, [item]: nodeType }), {})
   ),
-
+  excludeCells: PropTypes.oneOf([...cellPositions]),
   dotsPos: PropTypes.oneOf([...cellPositions, true, false]),
   prevPos: PropTypes.oneOf([...cellPositions, true, false]),
   nextPos: PropTypes.oneOf([...cellPositions, true, false]),
@@ -249,32 +259,32 @@ DefaultControls.propTypes = {
 };
 
 DefaultControls.defaultProps = {
-  prevTitle: 'Prev',
-  nextTitle: 'Next',
+  prevTitle: "Prev",
+  nextTitle: "Next",
 };
 
 const styles = {
   row: {
-    flexDirection: 'row',
+    flexDirection: "row",
     height: 0,
-    alignItems: 'center',
+    alignItems: "center",
     margin: 20,
   },
-  spaceHolder: alignItems => ({
+  spaceHolder: (alignItems) => ({
     height: 0,
     flex: 1,
     alignItems,
-    justifyContent: 'center',
+    justifyContent: "center",
   }),
   cell: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    position: 'absolute',
+    alignItems: "center",
+    justifyContent: "center",
+    position: "absolute",
   },
-  dotsWrapper: vertical => ({
-    flexDirection: vertical ? 'column' : 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
+  dotsWrapper: (vertical) => ({
+    flexDirection: vertical ? "column" : "row",
+    alignItems: "center",
+    justifyContent: "center",
     minWidth: 1,
     minHeight: 1,
   }),
@@ -283,10 +293,10 @@ const styles = {
   },
   dotsItem: (theme, isActive) => ({
     backgroundColor: isActive ? theme.colors.primary : theme.colors.grey3,
-    borderColor: 'transparent',
+    borderColor: "transparent",
   }),
   buttonTitleStyle: (theme, type) => ({
-    color: type === 'prev' ? theme.colors.grey3 : theme.colors.primary,
+    color: type === "prev" ? theme.colors.grey3 : theme.colors.primary,
   }),
   hidden: {
     opacity: 0,

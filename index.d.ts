@@ -6,7 +6,7 @@ import {
 } from 'react-native';
 
 type Falsy = undefined | null | false;
-interface RecursiveArray<T> extends Array<T | RecursiveArray<T>> {}
+interface RecursiveArray<T> extends Array<T | RecursiveArray<T>> { }
 /** Keep a brand of 'T' so that calls to `StyleSheet.flatten` can take `RegisteredStyle<T>` and return `T`. */
 type RegisteredStyle<T> = number & { __registeredStyleBrand: T };
 
@@ -93,6 +93,11 @@ interface SwiperControlsProps {
      * Controls corners placeholders styles
      */
     cellsStyle?: SwiperControlsCellsStyle;
+
+    /**
+     * Controls which cells could be excluded
+     */
+    excludeCells?: SwiperControlsCellsStyle;
 
     /**
      * Controls corners placeholders additional content
