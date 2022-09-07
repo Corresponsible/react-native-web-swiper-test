@@ -179,7 +179,7 @@ export default class DefaultControls extends React.Component {
       `${!rowAlign ? "" : rowAlign + "-"}right`,
     ];
 
-    if (excludeCells?.length !== 0) {
+    if (excludeCells && excludeCells?.length !== 0) {
       // exclude cells for proper styling
       row = row.filter((el) => !excludeCells.includes(el));
     }
