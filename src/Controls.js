@@ -218,7 +218,7 @@ DefaultControls.propTypes = {
   cellsContent: PropTypes.shape(
     cellPositions.reduce((obj, item) => ({ ...obj, [item]: nodeType }), {})
   ),
-  excludeCells: PropTypes.arrayOf([...cellPositions]),
+  excludeCells: PropTypes.arrayOf(PropTypes.oneOf(cellPositions)),
   dotsPos: PropTypes.oneOf([...cellPositions, true, false]),
   prevPos: PropTypes.oneOf([...cellPositions, true, false]),
   nextPos: PropTypes.oneOf([...cellPositions, true, false]),
