@@ -97,7 +97,7 @@ interface SwiperControlsProps {
     /**
      * Controls which cells could be excluded
      */
-    excludeCells?: [...SwiperControlsCellsStyle];
+    excludeCells?: Array<SwiperControlsCorners>;
 
     /**
      * Controls corners placeholders additional content
