@@ -14,7 +14,7 @@ const useNativeDriver = false; // because of RN #13377
 
 class Swiper extends React.Component {
   children = (() => React.Children.toArray(this.props.slides))();
-  count = (() => this.slides.length)();
+  count = (() => this.children.length)();
 
   startAutoplay() {
     const { timeout } = this.props;
