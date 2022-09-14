@@ -1,14 +1,20 @@
-import React, { cloneElement } from 'react';
-import PropTypes from 'prop-types';
-import { Animated, I18nManager, PanResponder, StyleSheet, View } from 'react-native';
+import React, { cloneElement } from "react";
+import PropTypes from "prop-types";
+import {
+  Animated,
+  I18nManager,
+  PanResponder,
+  StyleSheet,
+  View,
+} from "react-native";
 
-import DefaultControls from './Controls';
+import DefaultControls from "./Controls";
 
 const useNativeDriver = false; // because of RN #13377
 
 class Swiper extends React.Component {
-  children = (() => React.Children.toArray(this.props.children))();
-  count = (() => this.children.length)();
+  children = (() => React.Children.toArray(this.props.slides))();
+  count = (() => this.slides.length)();
 
   startAutoplay() {
     const { timeout } = this.props;
@@ -118,12 +124,15 @@ class Swiper extends React.Component {
         return allow;
       },
       onPanResponderGrant: () => this._fixState(),
-      onPanResponderMove: Animated.event([
-        null,
-        this.props.vertical
-          ? { dy: this.state.pan.y }
-          : { dx: this.state.pan.x },
-      ], { useNativeDriver: false }),
+      onPanResponderMove: Animated.event(
+        [
+          null,
+          this.props.vertical
+            ? { dy: this.state.pan.y }
+            : { dx: this.state.pan.x },
+        ],
+        { useNativeDriver: false }
+      ),
       onPanResponderRelease: (e, gesture) => {
         const { vertical, minDistanceForAction } = this.props;
         const { width, height } = this.state;
@@ -140,7 +149,15 @@ class Swiper extends React.Component {
         ) {
           this._spring({ x: 0, y: 0 });
         } else {
-          this._changeIndex(correction > 0 ? (!vertical && I18nManager.isRTL ? 1 : -1) : (!vertical && I18nManager.isRTL ? -1 : 1));
+          this._changeIndex(
+            correction > 0
+              ? !vertical && I18nManager.isRTL
+                ? 1
+                : -1
+              : !vertical && I18nManager.isRTL
+              ? -1
+              : 1
+          );
         }
       },
     };
@@ -159,7 +176,9 @@ class Swiper extends React.Component {
   _fixState() {
     const { vertical } = this.props;
     const { width, height, activeIndex } = this.state;
-    this._animatedValueX = vertical ? 0 : width * activeIndex * (I18nManager.isRTL ? 1 : -1);
+    this._animatedValueX = vertical
+      ? 0
+      : width * activeIndex * (I18nManager.isRTL ? 1 : -1);
     this._animatedValueY = vertical ? height * activeIndex * -1 : 0;
     this.state.pan.setOffset({
       x: this._animatedValueX,
@@ -265,7 +284,11 @@ class Swiper extends React.Component {
                   slideWrapperStyle,
                 ])}
               >
-                {cloneElement(el, { activeIndex: this.getActiveIndex(), index: i, isActive: i === this.getActiveIndex() })}
+                {cloneElement(el, {
+                  activeIndex: this.getActiveIndex(),
+                  index: i,
+                  isActive: i === this.getActiveIndex(),
+                })}
               </View>
             ))}
           </Animated.View>
@@ -339,27 +362,27 @@ Swiper.defaultProps = {
 const styles = {
   root: {
     flex: 1,
-    backgroundColor: 'transparent',
+    backgroundColor: "transparent",
   },
   // Fix web vertical scaling (like expo v33-34)
   container: (positionFixed, x, y, width, height) => ({
-    backgroundColor: 'transparent',
+    backgroundColor: "transparent",
     // Fix safari vertical bounces
-    position: positionFixed ? 'fixed' : 'relative',
-    overflow: 'hidden',
+    position: positionFixed ? "fixed" : "relative",
+    overflow: "hidden",
     top: positionFixed ? y : 0,
     left: positionFixed ? x : 0,
     width,
     height,
-    justifyContent: 'space-between',
+    justifyContent: "space-between",
   }),
   swipeArea: (vertical, count, width, height) => ({
-    position: 'absolute',
+    position: "absolute",
     top: 0,
     left: 0,
     width: vertical ? width : width * count,
     height: vertical ? height * count : height,
-    flexDirection: vertical ? 'column' : 'row',
+    flexDirection: vertical ? "column" : "row",
   }),
 };
 
