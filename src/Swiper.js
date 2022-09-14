@@ -13,7 +13,7 @@ import DefaultControls from "./Controls";
 const useNativeDriver = false; // because of RN #13377
 
 class Swiper extends React.Component {
-  children = (() => React.Children.toArray(this.props.slides))();
+  children = (() => React.Children.toArray(this.props.children))();
   count = (() => this.children.length)();
 
   startAutoplay() {
