@@ -258,6 +258,8 @@ class Swiper extends React.Component {
     return (
       <View
         style={StyleSheet.flatten([styles.root, containerStyle])}
+        // Fix for apium e2e visibility
+        accessible={false}
         onLayout={this._onLayout}
       >
         <View
