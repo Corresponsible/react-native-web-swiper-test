@@ -263,12 +263,14 @@ class Swiper extends React.Component {
         onLayout={this._onLayout}
       >
         <View
+          accessible={false}
           style={StyleSheet.flatten([
             styles.container(positionFixed, x, y, width, height),
             innerContainerStyle,
           ])}
         >
           <Animated.View
+            accessible={false}
             style={StyleSheet.flatten([
               styles.swipeArea(vertical, this.count, width, height),
               swipeAreaStyle,

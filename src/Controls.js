@@ -186,7 +186,7 @@ export default class DefaultControls extends React.Component {
 
     const alignItems = ["flex-start", "center", "flex-end"];
     return (
-      <View style={styles.row}>
+      <View accessible={false} style={styles.row}>
         {row.map((name, index) => (
           <View key={name} style={styles.spaceHolder(alignItems[index])}>
             <Cell name={name} />
