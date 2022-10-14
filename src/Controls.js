@@ -52,6 +52,7 @@ export default class DefaultControls extends React.Component {
     const { containerStyle, badgeStyle, ...others } = dotProps;
     return (
       <Badge
+        accessible={false}
         theme={{ colors }}
         containerStyle={StyleSheet.flatten([
           styles.dotsItemContainer,
@@ -80,6 +81,7 @@ export default class DefaultControls extends React.Component {
     } = this.props;
     return (
       <View
+        accessible={false}
         style={StyleSheet.flatten([
           styles.dotsWrapper(vertical),
           dotsWrapperStyle,
@@ -87,6 +89,7 @@ export default class DefaultControls extends React.Component {
       >
         {Array.from({ length: count }, (v, i) => i).map((index) => (
           <DotComponent
+            accessible={false}
             key={index}
             index={index}
             activeIndex={activeIndex}
@@ -103,6 +106,7 @@ export default class DefaultControls extends React.Component {
       <Button
         theme={{ colors }}
         type="clear"
+        accessible={false}
         onPress={onPress}
         title={title}
         titleStyle={StyleSheet.flatten([
@@ -129,6 +133,7 @@ export default class DefaultControls extends React.Component {
     return (
       <PrevComponent
         type="prev"
+        accessible={false}
         title={prevTitle}
         titleStyle={prevTitleStyle}
         onPress={goToPrev}
@@ -150,6 +155,7 @@ export default class DefaultControls extends React.Component {
     }
     return (
       <NextComponent
+        accessible={false}
         type="next"
         title={nextTitle}
         titleStyle={nextTitleStyle}

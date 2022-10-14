@@ -1,10 +1,10 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import React from "react";
+import PropTypes from "prop-types";
+import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 
-import { renderNode } from './renderNode';
+import { renderNode } from "./renderNode";
 
-const Badge = props => {
+const Badge = (props) => {
   const {
     containerStyle,
     textStyle,
@@ -24,6 +24,7 @@ const Badge = props => {
   return (
     <View style={StyleSheet.flatten([containerStyle && containerStyle])}>
       <Component
+        accessible={false}
         {...attributes}
         style={StyleSheet.flatten([
           styles.badge(theme, status),
@@ -52,11 +53,11 @@ Badge.propTypes = {
   onPress: PropTypes.func,
   Component: PropTypes.func,
   theme: PropTypes.object,
-  status: PropTypes.oneOf(['primary', 'success', 'warning', 'error']),
+  status: PropTypes.oneOf(["primary", "success", "warning", "error"]),
 };
 
 Badge.defaultProps = {
-  status: 'primary',
+  status: "primary",
 };
 
 const size = 18;
@@ -64,15 +65,15 @@ const miniSize = 8;
 
 const styles = {
   badge: (theme, status) => ({
-    alignSelf: 'center',
+    alignSelf: "center",
     minWidth: size,
     height: size,
     borderRadius: size / 2,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     backgroundColor: theme.colors[status],
     borderWidth: StyleSheet.hairlineWidth,
-    borderColor: '#fff',
+    borderColor: "#fff",
   }),
   miniBadge: {
     paddingHorizontal: 0,
@@ -83,7 +84,7 @@ const styles = {
   },
   text: {
     fontSize: 12,
-    color: 'white',
+    color: "white",
     paddingHorizontal: 4,
   },
 };
