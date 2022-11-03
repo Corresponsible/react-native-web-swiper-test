@@ -24,7 +24,6 @@ const Badge = (props) => {
   return (
     <View style={StyleSheet.flatten([containerStyle && containerStyle])}>
       <Component
-        accessible={false}
         {...attributes}
         style={StyleSheet.flatten([
           styles.badge(theme, status),

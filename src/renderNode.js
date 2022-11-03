@@ -12,14 +12,10 @@ export const renderNode = (Component, content, defaultProps) => {
   }
   // Just in case
   if (content === true) {
-    return <Component accessible={false} {...defaultProps} />;
+    return <Component {...defaultProps} />;
   }
   if (typeof content === "string" || typeof content === "number") {
-    return (
-      <Component accessible={false} {...defaultProps}>
-        {content}
-      </Component>
-    );
+    return <Component {...defaultProps}>{content}</Component>;
   }
-  return <Component accessible={false} {...defaultProps} {...content} />;
+  return <Component {...defaultProps} {...content} />;
 };
