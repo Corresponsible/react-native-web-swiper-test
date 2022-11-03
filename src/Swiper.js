@@ -257,16 +257,19 @@ class Swiper extends React.Component {
 
     return (
       <View
+        accessible={false}
         style={StyleSheet.flatten([styles.root, containerStyle])}
         onLayout={this._onLayout}
       >
         <View
+          accessible={false}
           style={StyleSheet.flatten([
             styles.container(positionFixed, x, y, width, height),
             innerContainerStyle,
           ])}
         >
           <Animated.View
+            accessible={false}
             style={StyleSheet.flatten([
               styles.swipeArea(vertical, this.count, width, height),
               swipeAreaStyle,
@@ -279,6 +282,7 @@ class Swiper extends React.Component {
             {this.children.map((el, i) => (
               <View
                 key={i}
+                accessible={false}
                 style={StyleSheet.flatten([
                   { width, height },
                   slideWrapperStyle,
